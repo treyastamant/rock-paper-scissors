@@ -1,33 +1,11 @@
 function getComputerChoice() {
-    let choice = ["Rock", "Paper", "Scissors"];
+    let choice = ["rock", "paper", "scissors"];
     return choice[Math.floor(Math.random() * 3)];
 }
-let playerSelection;
 let playerScore = 0;
 let computerScore = 0;
 
-//v1 playRound ------------------------------------
-// function playRound(playerSelection, computerSelection) {
-//     playerSelection = prompt("Rock, Paper, or Scissors?");
-//     let choices = playerSelection.toLowerCase() + computerSelection.toLowerCase();
-//     let message;
-
-//     if ((choices === "rockscissors") || (choices === "scissorspaper") || (choices === "paperrock")) {
-//         message = "You win!";
-//         playerScore++;
-//     } else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
-//         message = "It's a tie.";
-//     } else {
-//         message =  "You lose!";
-//         computerScore++;
-//     }
-//     return message;
-// }
-
-function playRound(playerSelection, comp) {
-    playerSelection = prompt("Rock, Paper, or Scissors?");
-    let p = playerSelection.toLowerCase();
-    let c = comp.toLowerCase();
+function playRound(p, c) {
     let message;
     if (p === "rock" && c === "scissors") {
         message = "You: Rock | Comp: Scissors\n** You Win! **";
@@ -39,38 +17,47 @@ function playRound(playerSelection, comp) {
         message = "You: Paper | Comp: Rock\n** You Win! **";
         playerScore++;
     } else if (p === "rock" && c === "paper") {
-        message = "You: Rock | Comp: Paper\n** You Loose! **";
+        message = "You: Rock | Comp: Paper\n** You Lose! **";
         computerScore++;
     } else if (p === "paper" && c === "scissors") {
-        message = "You: Paper | Comp: Scissors\n** You Loose! **";
+        message = "You: Paper | Comp: Scissors\n** You Lose! **";
         computerScore++;
     } else if (p === "scissors" && c === "rock") {
-        message = "You: Scissors | Comp: Rock\n** You Loose! **";
+        message = "You: Scissors\nComp: Rock\n** You Lose! **";
         computerScore++;
-    }
-        else {
-        message = "It's a tie"
+    } else if (p === "rock" && c === "rock") {
+        message = "You both chose Rock\n** It's a tie! **";
+    } else if (p === "scissors" && c === "scissors") {
+        message = "You both chose Scissors\n** It's a tie! **";
+    } else if (p === "paper" && c === "paper") {
+        message = "You both chose Paper\n** It's a tie! **";
     }
     return message;
 }
+const round = document.querySelector('#round-output');
+const pScore = document.querySelector('#player-score');
+const cScore = document.querySelector('#computer-score');
 
-function game() {
-    for (let round = 1; round < 6; round++) {
-        let roundResults = playRound(playerSelection, getComputerChoice());
-        console.log("Round " + round + ": " + roundResults);
-    }
-    let endGameMessage
-    if (playerScore > computerScore) {
-        endGameMessage = "*** You won the game! ***";
-    } else if (playerScore < computerScore) {
-        endGameMessage = "*** You lost the game! ***";
-    } else {
-        endGameMessage = "*** It was a tie game. ***";
-    }
-    console.log(endGameMessage);
-}
+const rock = document.querySelector('#rock');
+rock.addEventListener('click', () => {
+    round.textContent = playRound("rock", getComputerChoice());
+    pScore.textContent = "Your Score: " + playerScore;
+    cScore.textContent = "Comp Score: " + computerScore;
+});
 
-console.log(game());
+const paper = document.querySelector('#paper');
+paper.addEventListener('click', () => {
+    round.textContent = playRound("paper", getComputerChoice());
+    pScore.textContent = "Your Score: " + playerScore;
+    cScore.textContent = "Comp Score: " + computerScore;
+    
+});
 
-// TODO Make it so player can't input random things. Prompt reentry if not rock, paper, or scissors
+const scissors = document.querySelector('#scissors');
+scissors.addEventListener('click', () => {
+    round.textContent = playRound("scissors", getComputerChoice());
+    pScore.textContent = "Your Score: " + playerScore;
+    cScore.textContent = "Comp Score: " + computerScore;
+});
+
 
